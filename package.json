@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/hash-bang/Node-simpleJSONFilter"
+		"url": "https://github.com/hash-bang/simpleJSONFilter"
 	},
 	"keywords": [
 		"JSON",
