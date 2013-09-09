@@ -1,0 +1,21 @@
+{
+	"name": "simple-json-filter",
+	"version": "0.2.0",
+	"description": "Extremely simple JSON filtering system",
+	"main": "index.js",
+	"scripts": {
+		"test": "node test.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hash-bang/Node-simpleJSONFilter"
+	},
+	"keywords": [
+		"JSON",
+		"filter",
+		"filtering",
+		"query"
+	],
+	"author": "Matt Carter <m@ttcarter.com>",
+	"license": "MIT"
+}
