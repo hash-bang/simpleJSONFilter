@@ -81,6 +81,16 @@ assert.deepEqual(
 );
 // }}}
 
+// Alternate syntax {{{
+assert.deepEqual(
+	sjf
+		.filter({'age <=': '40'})
+		.data(data)
+		.exec(),
+	{one: data.one, two: data.two, three: data.three}
+);
+// }}}
+
 // Multiple key tests {{{
 assert.deepEqual(
 	sjf.exec({'age >': '40.1', 'id >': 4}, data),
@@ -90,6 +100,31 @@ assert.deepEqual(
 	sjf.exec({'age >': '40.1', 'id >': 6}, data),
 	{}
 );
+// }}}
+
+// Limit {{{
+assert.deepEqual(
+	sjf
+		.filter({'age <=': '40'})
+		.data(data)
+		.limit(1)
+		.exec(),
+	{one: data.one}
+);
+sjf.reset();
+// }}}
+
+// WantArray {{{
+assert.deepEqual(
+	sjf
+		.filter({'age <=': '40'})
+		.data(data)
+		.limit(1)
+		.wantArray()
+		.exec(),
+	[data.one]
+);
+sjf.reset();
 // }}}
 
 // Custom handler definition {{{

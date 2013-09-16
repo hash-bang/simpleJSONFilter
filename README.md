@@ -67,3 +67,33 @@ Definining your own handlers
 
 	var filter = {'age ends with': '0'};
 	sjf.exec(filter, data), // Returns the keys & values of 'three', 'four' and 'five'
+
+Alternate syntax
+
+	var simpleJSONFilter = require("./index.js");
+	var sjf = new simpleJSONFilter();
+	sjf
+		.filter({'age <=': '40'})
+		.data(data)
+		.exec(); // Returns keys & values of 'one', 'two' and 'three'
+
+Limit the number of returned items
+
+	var simpleJSONFilter = require("./index.js");
+	var sjf = new simpleJSONFilter();
+	sjf
+		.filter({'age <=': '40'})
+		.data(data)
+		.limit(1)
+		.exec(); // Returns keys & values of 'one' (as it has a limit of one)
+
+Limit the number of returned items & return an array
+
+	var simpleJSONFilter = require("./index.js");
+	var sjf = new simpleJSONFilter();
+	sjf
+		.filter({'age <=': '40'})
+		.data(data)
+		.limit(1)
+		.wantArray()
+		.exec(); // Returns a single item array of 'one'

@@ -4,6 +4,11 @@ module.exports = function () {
 
 	this.handlers = [];
 
+	this.myFilter = null;
+	this.myData = null;
+	this.myLimit = null;
+	this.myWantArray = false;
+
 	this.init = function() {
 		this.addHandler(/^(.*?) ={1,2}$/, function(key, val, data) { // {'foo =': 'bar'} or {'foo ==': 'bar'}
 			return (data[key] == val);
@@ -22,16 +27,60 @@ module.exports = function () {
 		});
 	};
 
+	// Simple setters {{{
+	this.filter = function(filter) {
+		this.myFilter = filter;
+		return this;
+	};
+
+	this.data = function(data) {
+		this.myData = data;
+		return this;
+	};
+
+	this.limit = function(limit) {
+		this.myLimit = limit;
+		return this;
+	};
+
+	this.wantArray = function(wantArray) {
+		this.myWantArray = wantArray === undefined ? true : wantArray;
+		return this;
+	};
+	// }}}
+
+	this.reset = function() {
+		this.myData = null;
+		this.myFilter = null;
+		this.myWantArray = false;
+		this.myLimit = 0;
+		return this;
+	};
+
 	this.addHandler = function(re, callback) {
 		this.handlers.push([re, callback]);
 	};
 
-	this.exec = function(filter, data) {
-		var out = {};
+	this.exec = function(filter, data, limit) {
+		var out = this.myWantArray ? [] : {};
+		var found = 0;
+		if (!filter)
+			filter = this.myFilter;
+		if (!data)
+			data = this.myData;
+		if (!limit)
+			limit = this.myLimit;
+
 		for (var id in data) {
 			var row = data[id];
 			if (this.matches(filter, row)) {
-				out[id] = row;
+				if (this.myWantArray) {
+					out.push(row);
+				} else
+					out[id] = row;
+
+				if (limit && ++found >= limit)
+					break;
 			}
 		}
 		return out;
